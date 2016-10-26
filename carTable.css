@@ -1,0 +1,42 @@
+.cartable{
+    position: absolute;
+    border-collapse: collapse;
+    width: 60vw;
+    left: 20vw;
+    height: 60vh;
+    top: 10vh;
+    font-family: Arial;
+
+}
+.inputText{
+    width: 100px;
+}
+
+.cartable td{
+    text-align: center;
+    padding: 1vh;
+    height: 3vh;
+}
+.cartable tr:nth-child(1){
+    font-weight: bold;
+    border-bottom: 1px solid black;
+
+
+}
+
+.button{
+    width: 50px;
+
+}
+.delButton{
+    width: 35px;
+}
+
+.topButtons{
+    width: 100%;
+    height:100%;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: lightgray;
+    border: hidden;
+}

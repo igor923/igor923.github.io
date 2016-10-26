@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="carTable.css">
+    <script src="Car.js"></script>
+    <script src="Owner.js"></script>
+    <script src="RandomUtile.js"></script>
+    <script src="ArrayUtil.js"></script>
+    <script src="TableWorking.js"></script>
+</head>
+<body>
+<script>
+
+    var carArray = [];
+    for (var i = 0; i < 10; i++)carArray[i] = Car.random()
+
+
+    var backEndResponse = JSON.stringify(carArray);
+    /*console.log(backEndResponse);*/
+
+    /*console.log(Car.random());*/
+
+    //-----------------------------------------------
+
+    var res = JSON.parse(backEndResponse);
+
+    ArrayUtil.barmanSort(res, Car.modelComparator);
+
+    /*console.log(res);*/
+    var flag = 0;
+
+    var tbl = document.createElement("table");
+    tbl.className = "cartable";
+    tbl.id = "tableFin";
+
+    //header
+    var row = tbl.insertRow();
+    row.insertCell();
+    row.insertCell().innerHTML = '<button id="modelButton" class="topButtons">Model</button>';
+    row.insertCell().innerHTML = '<button id="colorButton" class="topButtons">Color</button>';
+    row.insertCell().innerHTML = '<button id="engineButton" class="topButtons">Engine</button>';
+    row.insertCell().innerHTML = '<button id="ownerButton" class="topButtons">Owner\'s name</button>';
+    row.insertCell().innerHTML = '<button id="cityButton" class="topButtons">Owner\'s city</button>';
+
+
+    row = tbl.insertRow();
+    row.insertCell().innerHTML = '<button id="del" class="delButton">Del</button>';
+    row.insertCell().innerHTML = '<input type="text" class="inputText" id="inputModel" placeholder="Add model "/>';
+    row.insertCell().innerHTML = '<input type="color" class="inputText" id="inputColor" />';
+    row.insertCell().innerHTML = '<input type="text" class="inputText" id="inputEngine" placeholder="Add engie 0.00"/>';
+    row.insertCell().innerHTML = '<input type="text" class="inputText" id="inputOName" placeholder="Add name "/>';
+    row.insertCell().innerHTML = '<input type="text" class="inputText" id="inputOCity" placeholder="Add city "/>';
+    row.insertCell().innerHTML = '<button id="add" class="button">Add car</button>';
+    row.insertCell().innerHTML = '<button id="submit" class="button">Clear form</button>';
+
+    //tbody
+
+    for (i = 0; i < res.length; i++) {
+        row = tbl.insertRow();
+        row.insertCell().innerHTML = '<input type="checkbox" class="check"/>';
+        row.insertCell().innerText = res[i].model;
+        row.insertCell().style.backgroundColor = res[i].color;
+        row.insertCell().innerText = res[i].engine;
+        row.insertCell().innerText = res[i].owner.name;
+        row.insertCell().innerText = res[i].owner.city;
+
+    }
+
+    document.body.appendChild(tbl);
+
+    document.getElementById("submit").onclick = function () {
+        document.getElementById("inputModel").value = "";
+        document.getElementById("inputColor").value = "";
+        document.getElementById("inputEngine").value = "";
+        document.getElementById("inputOName").value = "";
+        document.getElementById("inputOCity").value = "";
+    };
+
+    TableWorking.sortByName(flag,res,tbl);
+    TableWorking.sortByCity(flag, res, tbl);
+    TableWorking.sortByEngine(flag, res, tbl);
+    TableWorking.sortByColor(flag,res,tbl);
+    TableWorking.sortByModel(flag,res,tbl);
+    TableWorking.addElement(res, tbl);
+    TableWorking.delElement(res, tbl);
+
+
+
+    /*------------------------------------------------------------------------------------*/
+
+
+
+</script>
+
+
+</body>
+</html>
